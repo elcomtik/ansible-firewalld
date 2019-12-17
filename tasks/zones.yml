@@ -9,3 +9,4 @@
     zone: "{{ item['zone'] }}"
   become: true
   with_items: '{{ firewalld_zones }}'
+  notify: reload firewalld service

@@ -12,3 +12,4 @@
     zone: "{{ item['zone']|default(omit) }}"
   become: true
   with_items: '{{ firewalld_rules }}'
+  notify: reload firewalld service

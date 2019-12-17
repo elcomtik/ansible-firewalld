@@ -1,2 +1,7 @@
 ---
 # handlers file for ansible-firewalld
+- name: reload firewalld service
+  service:
+    name: "firewalld"
+    state: "reloaded"
+  become: true
