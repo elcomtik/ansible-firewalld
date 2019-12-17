@@ -15,29 +15,18 @@
   when: >
         'installed' in _firewalld_ufw_check['stdout']
 
-- name: debian | Installing Pre-Reqs
-  apt:
-    name: "{{ item }}"
-    state: "present"
-  become: true
-  with_items:
-    - 'python-pip'
-    - 'python-setuptools'
-
 - name: debian | Installing Firewalld
   apt:
-    name: "{{ item }}"
+    name:
+      - 'firewall-config'
+      - 'firewalld'
     state: "present"
   become: true
-  with_items:
-    - 'cockpit'
-    - 'firewall-config'
-    - 'firewalld'
 
-- name: debian | Installing Python Modules
-  pip:
-    name: "{{ item }}"
-    state: "present"
+- name: debian | Ensuring firewalld Service Is Started And Enabled On Boot
+  service:
+    name: "firewalld"
+    state: "started"
+    enabled: true
   become: true
-  with_items:
-    - 'firewall'
+
