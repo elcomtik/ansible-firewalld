@@ -18,7 +18,8 @@ An [Ansible](https://www.ansible.com) role to manage [firewalld](http://www.fire
 
 ## Requirements
 
-None
+Provisioned host on Debian systems must have python3 support, because python2 python dependencies are messed up.
+Please specify in tour playbook vars python interpreter path by variable: 'ansible_python_interpreter'
 
 ## Role Variables
 
@@ -84,9 +85,8 @@ None
   vars:
     firewalld_custom_zones:
       - zone: 'privateDNS'
-        state: 'enabled'
+        state: 'present'
         present: true
-    firewalld_enable_immediately: true
     firewalld_rules:
       - service: 'dhcp'
         permanent: true
