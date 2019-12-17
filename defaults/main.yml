@@ -11,10 +11,10 @@
 ### deletes zone if present
 firewalld_custom_zones: []
   # - zone: 'docker'
-  #   state: 'enabled'
+  #   state: 'present'
   #   present: false
   # - zone: 'privateDNS'
-  #   state: 'enabled'
+  #   state: 'present'
   #   present: true
 
 # Defines firewall rules
