@@ -8,14 +8,12 @@
 
 - name: redhat | Installing Firewalld (==Fedora)
   dnf:
-    name: "{{ item }}"
+    name:
+      - 'firewall-config'
+      - 'firewalld'
+      - 'python-firewall'
     state: "present"
   become: true
-  with_items:
-    - 'cockpit'
-    - 'firewall-config'
-    - 'firewalld'
-    - 'python-firewall'
   when: ansible_distribution == "Fedora"
 
 - name: redhat | Ensuring firewalld Service Is Started And Enabled On Boot
