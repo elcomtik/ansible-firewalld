@@ -8,6 +8,7 @@
     port: "{{ item['port']|default(omit) }}"
     service: "{{ item['service']|default(omit) }}"
     source: "{{ item['source']|default(omit) }}"
+    rich_rule: "{{ item['rich_rule']|default(omit) }}"
     state: "{{ item['state']|default(omit) }}"
     zone: "{{ item['zone']|default(omit) }}"
   become: true
