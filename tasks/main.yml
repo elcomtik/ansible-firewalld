@@ -14,4 +14,3 @@
 
 - include_tasks: rules.yml
   when: firewalld_rules is defined
-

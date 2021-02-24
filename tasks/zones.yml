@@ -1,6 +1,6 @@
 ---
-- name: zones | Managing Firewall Zones - interface
-  firewalld:
+- name: "zones | Managing Firewall Zones - interface"
+  ansible.posix.firewalld:
     immediate: "{{ item['immediate']|default(omit) }}"
     interface: "{{ item['interface']|default(omit) }}"
     permanent: "{{ item['permanent']|default(false) }}"
@@ -11,8 +11,8 @@
   with_items: '{{ firewalld_zones }}'
   notify: reload firewalld service
 
-- name: zones | Managing Firewall Zones - masquarade
-  firewalld:
+- name: "zones | Managing Firewall Zones - masquarade"
+  ansible.posix.firewalld:
     immediate: "{{ item['immediate']|default(omit) }}"
     masquerade: "{{ item['masquerade']|default(omit) }}"
     permanent: "{{ item['permanent']|default(false) }}"

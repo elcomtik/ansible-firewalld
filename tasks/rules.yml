@@ -1,6 +1,6 @@
 ---
-- name: rules | Managing Firewall Rules
-  firewalld:
+- name: "rules | Managing Firewall Rules"
+  ansible.posix.firewalld:
     immediate: "{{ item['immediate']|default(omit) }}"
     interface: "{{ item['interface']|default(omit) }}"
     masquerade: "{{ item['masquerade']|default(omit) }}"

@@ -1,6 +1,6 @@
 ---
-- name: zones | Manage Custom Firewall Zones
-  firewalld:
+- name: "zones | Manage Custom Firewall Zones"
+  ansible.posix.firewalld:
     zone: "{{ item['zone'] }}"
     state: "{{ item['state'] }}"
     permanent: true
@@ -8,5 +8,5 @@
   with_items: '{{ firewalld_custom_zones }}'
   notify: reload firewalld service
 
-- name: zones | Flush pending handlers (reload firewalld)
+- name: "zones | Flush pending handlers (reload firewalld)"
   meta: flush_handlers

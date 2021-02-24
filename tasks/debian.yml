@@ -1,13 +1,13 @@
 ---
-- name: debian | Checking If UFW Is Installed
-  command: "dpkg -s ufw | grep Status"
+- name: "debian | Checking If UFW Is Installed"
+  ansible.builtin.command: "dpkg -s ufw | grep Status"
   become: true
   changed_when: false
   failed_when: false
   register: "_firewalld_ufw_check"
 
-- name: debian | Disabling UFW If Installed
-  service:
+- name: "debian | Disabling UFW If Installed"
+  ansible.builtin.service:
     name: "ufw"
     state: "stopped"
     enabled: false
@@ -15,16 +15,16 @@
   when: >
         'installed' in _firewalld_ufw_check['stdout']
 
-- name: debian | Installing Firewalld
-  apt:
+- name: "debian | Installing Firewalld"
+  ansible.builtin.apt:
     name:
       - 'firewall-config'
       - 'firewalld'
     state: "present"
   become: true
 
-- name: debian | Ensuring firewalld Service Is Started And Enabled On Boot
-  service:
+- name: "debian | Ensuring firewalld Service Is Started And Enabled On Boot"
+  ansible.builtin.service:
     name: "firewalld"
     state: "started"
     enabled: true

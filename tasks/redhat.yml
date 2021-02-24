@@ -1,13 +1,13 @@
 ---
-- name: redhat | Installing Firewalld (!=Fedora)
-  yum:
+- name: "redhat | Installing Firewalld (!=Fedora)"
+  ansible.builtin.yum:
     name: "firewalld"
     state: "present"
   become: true
   when: ansible_distribution != "Fedora"
 
-- name: redhat | Installing Firewalld (==Fedora)
-  dnf:
+- name: "redhat | Installing Firewalld (==Fedora)"
+  ansible.builtin.dnf:
     name:
       - 'firewall-config'
       - 'firewalld'
@@ -16,8 +16,8 @@
   become: true
   when: ansible_distribution == "Fedora"
 
-- name: redhat | Ensuring firewalld Service Is Started And Enabled On Boot
-  service:
+- name: "redhat | Ensuring firewalld Service Is Started And Enabled On Boot"
+  ansible.builtin.service:
     name: "firewalld"
     state: "started"
     enabled: true
