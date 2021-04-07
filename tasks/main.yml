@@ -1,16 +1,36 @@
 ---
 # tasks file for ansible-firewalld
-- include_tasks: debian.yml
+- name: "main | Include tasks specific for Debian os family"
+  include_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
-- include_tasks: redhat.yml
+- name: "main | Include tasks specific for RedHat os family"
+  include_tasks: redhat.yml
   when: ansible_os_family == "RedHat"
 
-- include_tasks: custom_zones.yml
+- name: "main | Ensuring that ssh port number is configured before starting firewall"
+  template:
+    src: "etc/firewalld/services/ssh.xml.j2"
+    dest: "/etc/firewalld/services/ssh.xml"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  become: true
+
+- name: "main | Ensuring firewalld service is started before configuring zones & rules"
+  ansible.builtin.service:
+    name: "firewalld"
+    state: "started"
+  become: true
+
+- name: "main | Include tasks for managing custom firewall zones"
+  include_tasks: custom_zones.yml
   when: firewalld_custom_zones is defined
 
-- include_tasks: zones.yml
+- name: "main | Include tasks for managing common firewall zones"
+  include_tasks: zones.yml
   when: firewalld_zones is defined
 
-- include_tasks: rules.yml
+- name: "main | Include tasks for managing firewall rules"
+  include_tasks: rules.yml
   when: firewalld_rules is defined

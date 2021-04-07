@@ -16,9 +16,8 @@
   become: true
   when: ansible_distribution == "Fedora"
 
-- name: "redhat | Ensuring firewalld Service Is Started And Enabled On Boot"
+- name: "redhat | Ensuring firewalld service is enabled on boot"
   ansible.builtin.service:
     name: "firewalld"
-    state: "started"
     enabled: true
   become: true
