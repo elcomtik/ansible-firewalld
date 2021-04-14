@@ -1,12 +1,19 @@
 ---
-- name: "zones | Manage Custom Firewall Zones"
+- name: "zones | Manage Custom Firewall Zones - create/delete"
   ansible.posix.firewalld:
-    zone: "{{ item['zone'] }}"
+    permanent: "{{ item['permanent']|default(true) }}"
     state: "{{ item['state'] }}"
-    permanent: true
+    zone: "{{ item['zone'] }}"
   become: true
   with_items: '{{ firewalld_custom_zones }}'
   notify: reload firewalld service
 
-- name: "zones | Flush pending handlers (reload firewalld)"
-  meta: flush_handlers
+- name: "zones | Manage Custom Firewall Zones - target"
+  ansible.posix.firewalld:
+    permanent: "{{ item['permanent']|default(true) }}"
+    state: "{{ item['state'] }}"
+    target: "{{ item['target']|default('default') }}"
+    zone: "{{ item['zone'] }}"
+  become: true
+  with_items: '{{ firewalld_custom_zones }}'
+  notify: reload firewalld service
